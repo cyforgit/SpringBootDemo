@@ -28,11 +28,11 @@ public class LogUtil {
 	}
 
 	public static void error(String msg) {
-		logger.error(msg);
+		exceptionLogger.error(msg);
 	}
 
 	public static void error(String msg, Exception e) {
-		logger.error(msg, e);
+		exceptionLogger.error(msg, e);
 	}
 
 }

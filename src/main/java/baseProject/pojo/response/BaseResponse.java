@@ -6,6 +6,18 @@ public class BaseResponse {
 
 	String resultMsg = "";
 
+	
+	
+	public BaseResponse() {
+		super();
+	}
+
+	public BaseResponse(int resultCode, String resultMsg) {
+		super();
+		this.resultCode = resultCode;
+		this.resultMsg = resultMsg;
+	}
+
 	public int getResultCode() {
 		return resultCode;
 	}
