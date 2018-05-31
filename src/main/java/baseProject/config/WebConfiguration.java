@@ -1,4 +1,4 @@
-package baseProject;
+package baseProject.config;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -16,6 +16,7 @@ import baseProject.controller.ApiHandlerInterceptor;
 
 @Configuration
 public class WebConfiguration implements WebMvcConfigurer {
+
 	@Bean
 	public FilterRegistrationBean<Filter> filterRegistrationBean() {
 		FilterRegistrationBean<Filter> registrationBean = new FilterRegistrationBean<>();
@@ -29,6 +30,9 @@ public class WebConfiguration implements WebMvcConfigurer {
 		return registrationBean;
 	}
 
+	/**
+	 * 添加自定义拦截器
+	 */
 	@Override
 	public void addInterceptors(InterceptorRegistry registry) {
 		registry.addInterceptor(new ApiHandlerInterceptor()).addPathPatterns("/**");
