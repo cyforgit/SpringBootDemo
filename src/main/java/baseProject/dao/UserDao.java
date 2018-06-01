@@ -1,11 +1,20 @@
 package baseProject.dao;
 
+import java.util.List;
+
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Result;
+import org.apache.ibatis.annotations.Results;
 import org.apache.ibatis.annotations.Select;
+
+import baseProject.pojo.User;
 
 @Mapper
 public interface UserDao {
 
-	@Select("SELECT * FROM users LIMIT 1")
-	
+	@Select("SELECT * FROM users LIMIT 3")
+	@Results({ @Result(property = "id", column = "ID"), @Result(property = "userName", column = "USERNAME"),
+			@Result(property = "passWord", column = "PASSWORD"), @Result(property = "mobile", column = "MOBILE"),
+			@Result(property = "email", column = "EMAIL"), })
+	List<User> getUsers();
 }
