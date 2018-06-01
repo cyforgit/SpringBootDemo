@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration status="debug" monitorInterval="30">
+	<Properties>
+		<Property name="logDir">d:/usr/springbootdemo/logs/common</Property>
+	</Properties>
+	<Appenders>
+
+		<Console name="Console" target="SYSTEM_OUT">
+			<PatternLayout pattern="%d{HH:mm:ss.SSS} [%t] - %msg%n" />
+		</Console>
+
+		<RollingFile createOnDemand="false" name="commoninfo"
+			filename="${logDir}/info" filePattern="${logDir}/$${date:yyyy-MM}/info-%d{yyyy-MM-dd}-%i.log">
+			<!--控制台只输出level及以上级别的信息（onMatch），其他的直接拒绝（onMismatch） -->
+			<ThresholdFilter level="INFO" onMatch="ACCEPT"
+				onMismatch="DENY" />
+			<PatternLayout charset="utf-8"
+				pattern="%d{yyyy-MM-dd HH:mm:ss,SSS} %-5p [%t] [%c] - %m%n" />
+			<Policies>
+				<SizeBasedTriggeringPolicy size="200 MB" />
+				<TimeBasedTriggeringPolicy interval="1"
+					modulate="true" />
+			</Policies>
+			<DefaultRolloverStrategy max="100">
+				<Delete basePath="${logDir}" maxDepth="2">
+					<IfFileName glob="*/info-*" />
+					<IfAccumulatedFileSize exceeds="10GB" />
+					<IfLastModified age="7d" />
+				</Delete>
+			</DefaultRolloverStrategy>
+		</RollingFile>
+
+
+		<RollingFile createOnDemand="false" name="exception"
+			filename="${logDir}/exception" filePattern="${logDir}/$${date:yyyy-MM}/exception-%d{yyyy-MM-dd}-%i.log">
+			<!--控制台只输出level及以上级别的信息（onMatch），其他的直接拒绝（onMismatch） -->
+			<ThresholdFilter level="ERROR" onMatch="ACCEPT"
+				onMismatch="DENY" />
+			<PatternLayout charset="utf-8"
+				pattern="%d{yyyy-MM-dd HH:mm:ss,SSS} %-5p [%t] [%c] - %m%n" />
+			<Policies>
+				<SizeBasedTriggeringPolicy size="200 MB" />
+				<TimeBasedTriggeringPolicy interval="1"
+					modulate="true" />
+			</Policies>
+			<DefaultRolloverStrategy max="100">
+				<Delete basePath="${logDir}" maxDepth="2">
+					<IfFileName glob="*/exception-*" />
+					<IfAccumulatedFileSize exceeds="10GB" />
+					<IfLastModified age="7d" />
+				</Delete>
+			</DefaultRolloverStrategy>
+		</RollingFile>
+
+	</Appenders>
+
+
+	<Loggers>
+		<AsyncRoot level="INFO" includeLocation="false">
+			<appender-ref ref="commoninfo" />
+		</AsyncRoot>
+
+		<AsyncLogger name="exception" level="ERROR"
+			includeLocation="false" additivity="false">
+			<appender-ref ref="exception" />
+		</AsyncLogger>
+
+		<AsyncLogger name="debuginfo" level="debug"
+			includeLocation="false" additivity="false">
+			<appender-ref ref="Console" />
+		</AsyncLogger>
+	</Loggers>
+</Configuration>
