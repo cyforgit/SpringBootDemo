@@ -5,11 +5,13 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.data.redis.core.convert.RedisData;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import baseProject.dao.UserCacheDao;
 import baseProject.dao.UserDao;
+import baseProject.dao.UserRedisDao;
 import baseProject.pojo.response.BaseResponse;
 import baseProject.utils.LogUtil;
 
@@ -24,9 +26,12 @@ public class MvcController {
 
 	@Autowired
 	UserCacheDao userCacheDao;
-	
+
+	@Autowired
+	UserRedisDao userRedisDao;
+
 	@RequestMapping("/index")
-	public BaseResponse getBaseResponse(HttpServletRequest request,HttpServletResponse response) {
+	public BaseResponse getBaseResponse(HttpServletRequest request, HttpServletResponse response) {
 		userDao.getUsers().forEach((obj) -> {
 			System.out.println(obj.toString());
 		});
@@ -35,18 +40,25 @@ public class MvcController {
 	}
 
 	@RequestMapping("/getUser")
-	public BaseResponse getUserById(HttpServletRequest request,HttpServletResponse response) {
-		int id=Integer.parseInt(request.getParameter("id"));
+	public BaseResponse getUserById(HttpServletRequest request, HttpServletResponse response) {
+		int id = Integer.parseInt(request.getParameter("id"));
 		userCacheDao.getUserById(id).forEach((obj) -> {
 			LogUtil.debug(obj.toString());
-		});;
+		});
+		;
 		return new BaseResponse();
 	}
-	
+
 	@RequestMapping("/deletecache")
-	public BaseResponse deleteUserCache(HttpServletRequest request,HttpServletResponse response) {
-		int id=Integer.parseInt(request.getParameter("id"));
+	public BaseResponse deleteUserCache(HttpServletRequest request, HttpServletResponse response) {
+		int id = Integer.parseInt(request.getParameter("id"));
 		userCacheDao.deleteCache(id);
 		return new BaseResponse();
+	}
+
+	@RequestMapping("/getredisvalue")
+	public BaseResponse getValueFromRedis(HttpServletRequest request, HttpServletResponse response) {
+		String value = userRedisDao.getValue("keyaaa");
+		return new BaseResponse(0, value);
 	}
 }

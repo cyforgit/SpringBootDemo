@@ -7,25 +7,25 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.io.ClassPathResource;
 
+import baseProject.utils.LogUtil;
+
 @Configuration
 @EnableCaching
 public class CacheConfig {
-	
-	@Bean  
-	  public EhCacheManagerFactoryBean ehCacheManagerFactoryBean(){  
-	    System.out.println("CacheConfiguration.ehCacheManagerFactoryBean()");  
-	    EhCacheManagerFactoryBean cacheManagerFactoryBean = new EhCacheManagerFactoryBean ();  
-	    cacheManagerFactoryBean.setConfigLocation(new ClassPathResource("ehcache.xml"));
-	    cacheManagerFactoryBean.setShared(true);  
-	    return cacheManagerFactoryBean;  
-	  }
+
+	@Bean
+	public EhCacheManagerFactoryBean ehCacheManagerFactoryBean() {
+		LogUtil.debug("CacheConfiguration.ehCacheManagerFactoryBean()");
+		EhCacheManagerFactoryBean cacheManagerFactoryBean = new EhCacheManagerFactoryBean();
+		cacheManagerFactoryBean.setConfigLocation(new ClassPathResource("ehcache.xml"));
+		cacheManagerFactoryBean.setShared(true);
+		return cacheManagerFactoryBean;
+	}
 
 	@Bean
 	public EhCacheCacheManager ehCacheCacheManager(EhCacheManagerFactoryBean factoryBean) {
-		System.out.println("init cache manager");
+		LogUtil.debug("init cache manager");
 		return new EhCacheCacheManager(factoryBean.getObject());
 	}
-	
-
 
 }
