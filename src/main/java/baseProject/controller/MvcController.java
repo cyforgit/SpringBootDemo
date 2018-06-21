@@ -35,7 +35,6 @@ public class MvcController {
 		userDao.getUsers().forEach((obj) -> {
 			System.out.println(obj.toString());
 		});
-
 		return new BaseResponse(0, key);
 	}
 
