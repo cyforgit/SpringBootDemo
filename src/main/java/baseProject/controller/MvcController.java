@@ -21,43 +21,43 @@ public class MvcController {
 	@Value("${kkkkk}")
 	public String key;
 
-	@Autowired
-	UserDao userDao;
+//	@Autowired
+//	UserDao userDao;
+//
+//	@Autowired
+//	UserCacheDao userCacheDao;
+//
+//	@Autowired
+//	UserRedisDao userRedisDao;
 
-	@Autowired
-	UserCacheDao userCacheDao;
-
-	@Autowired
-	UserRedisDao userRedisDao;
-
-	@RequestMapping("/index")
-	public BaseResponse getBaseResponse(HttpServletRequest request, HttpServletResponse response) {
-		userDao.getUsers().forEach((obj) -> {
-			System.out.println(obj.toString());
-		});
-		return new BaseResponse(0, key);
-	}
-
-	@RequestMapping("/getUser")
-	public BaseResponse getUserById(HttpServletRequest request, HttpServletResponse response) {
-		int id = Integer.parseInt(request.getParameter("id"));
-		userCacheDao.getUserById(id).forEach((obj) -> {
-			LogUtil.debug(obj.toString());
-		});
-		;
-		return new BaseResponse();
-	}
-
-	@RequestMapping("/deletecache")
-	public BaseResponse deleteUserCache(HttpServletRequest request, HttpServletResponse response) {
-		int id = Integer.parseInt(request.getParameter("id"));
-		userCacheDao.deleteCache(id);
-		return new BaseResponse();
-	}
-
-	@RequestMapping("/getredisvalue")
-	public BaseResponse getValueFromRedis(HttpServletRequest request, HttpServletResponse response) {
-		String value = userRedisDao.getValue("keyaaa");
-		return new BaseResponse(0, value);
-	}
+//	@RequestMapping("/index")
+//	public BaseResponse getBaseResponse(HttpServletRequest request, HttpServletResponse response) {
+//		userDao.getUsers().forEach((obj) -> {
+//			System.out.println(obj.toString());
+//		});
+//		return new BaseResponse(0, key);
+//	}
+//
+//	@RequestMapping("/getUser")
+//	public BaseResponse getUserById(HttpServletRequest request, HttpServletResponse response) {
+//		int id = Integer.parseInt(request.getParameter("id"));
+//		userCacheDao.getUserById(id).forEach((obj) -> {
+//			LogUtil.debug(obj.toString());
+//		});
+//		;
+//		return new BaseResponse();
+//	}
+//
+//	@RequestMapping("/deletecache")
+//	public BaseResponse deleteUserCache(HttpServletRequest request, HttpServletResponse response) {
+//		int id = Integer.parseInt(request.getParameter("id"));
+//		userCacheDao.deleteCache(id);
+//		return new BaseResponse();
+//	}
+//
+//	@RequestMapping("/getredisvalue")
+//	public BaseResponse getValueFromRedis(HttpServletRequest request, HttpServletResponse response) {
+//		String value = userRedisDao.getValue("keyaaa");
+//		return new BaseResponse(0, value);
+//	}
 }

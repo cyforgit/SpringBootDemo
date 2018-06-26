@@ -3,8 +3,10 @@ package baseProject.config;
 import org.apache.commons.pool2.impl.GenericObjectPoolConfig;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.autoconfigure.data.redis.RedisProperties.Jedis;
+import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.data.redis.cache.RedisCacheManager;
 import org.springframework.data.redis.connection.RedisConnectionFactory;
 import org.springframework.data.redis.connection.RedisStandaloneConfiguration;
 import org.springframework.data.redis.connection.jedis.JedisClientConfiguration;
@@ -17,6 +19,7 @@ import baseProject.utils.LogUtil;
 import redis.clients.jedis.JedisPoolConfig;
 
 @Configuration
+@EnableCaching
 public class RedisConfig {
 
     @Value("${spring.redis.host}")
@@ -34,7 +37,6 @@ public class RedisConfig {
 
     @Bean
     public RedisConnectionFactory redisConnectionFactory() {
-        LogUtil.debug("init redis connection factory");
         LogUtil.debug("init redis connection factory:" + host + ":" + port);
         RedisStandaloneConfiguration redisStandaloneConfiguration = new RedisStandaloneConfiguration(host, port);
         redisStandaloneConfiguration.setHostName(host);
@@ -50,20 +52,26 @@ public class RedisConfig {
                 clientConfiguration);
         return jedisConnectionFactory;
     }
+    @Bean 
+    public RedisCacheManager redisCacheManager() {
+        
+    }
 
     /**
      * 
      */
-
-    // @Bean
-    // public RedisTemplate<String, String> redisTemplate(RedisConnectionFactory
-    // redisConnectionFactory) {
-    // RedisTemplate<String, String> template = new RedisTemplate<>();
-    // template.setConnectionFactory(redisConnectionFactory);
-    // template.setDefaultSerializer(new GenericJackson2JsonRedisSerializer());
-    // template.setKeySerializer(new StringRedisSerializer());
-    // template.setHashKeySerializer(new GenericJackson2JsonRedisSerializer());
-    // template.setValueSerializer(new GenericJackson2JsonRedisSerializer());
-    // return template;
-    // }
+    /**
+     * 自定义serializer
+     */
+     @Bean
+     public RedisTemplate<String, String> redisTemplate(RedisConnectionFactory
+     redisConnectionFactory) {
+     RedisTemplate<String, String> template = new RedisTemplate<>();
+     template.setConnectionFactory(redisConnectionFactory);
+//     template.setDefaultSerializer(new GenericJackson2JsonRedisSerializer());
+     template.setKeySerializer(new StringRedisSerializer());
+//     template.setHashKeySerializer(new GenericJackson2JsonRedisSerializer());
+//     template.setValueSerializer(new GenericJackson2JsonRedisSerializer());
+     return template;
+     }
 }
