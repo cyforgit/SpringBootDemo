@@ -60,13 +60,14 @@ public class RedisConfig {
                 clientConfiguration);
         return jedisConnectionFactory;
     }
+
     // 设置序列化方式
     // 缓存自动前缀
     // 设置缓存自动过期时间,30秒
     @Primary
-    @Bean(name="expireOneDay")
+    @Bean(name = "expireOneDay")
     public RedisCacheManager redisCacheManagerExpireOneDay(RedisConnectionFactory connectionFactory) {
-       
+
         RedisCacheWriter redisCacheWriter = RedisCacheWriter.lockingRedisCacheWriter(connectionFactory);
         SerializationPair<Object> valueSerializationPair = RedisSerializationContext.SerializationPair
                 .fromSerializer(new GenericJackson2JsonRedisSerializer());
@@ -74,14 +75,18 @@ public class RedisConfig {
         cacheConfiguration = cacheConfiguration.serializeValuesWith(valueSerializationPair);
         cacheConfiguration = cacheConfiguration.prefixKeysWith("myPrefix");
         cacheConfiguration = cacheConfiguration.entryTtl(Duration.ofDays(1));
+        /**
+         * 重要！要考虑是否缓存null，会有并发问题
+         */
+        cacheConfiguration = cacheConfiguration.disableCachingNullValues();
 
         RedisCacheManager redisCacheManager = new RedisCacheManager(redisCacheWriter, cacheConfiguration);
         return redisCacheManager;
     }
-    
-    @Bean(name="expireOneHour")
+
+    @Bean(name = "expireOneHour")
     public RedisCacheManager redisCacheManagerExpireOneHour(RedisConnectionFactory connectionFactory) {
-       
+
         RedisCacheWriter redisCacheWriter = RedisCacheWriter.lockingRedisCacheWriter(connectionFactory);
         SerializationPair<Object> valueSerializationPair = RedisSerializationContext.SerializationPair
                 .fromSerializer(new GenericJackson2JsonRedisSerializer());
