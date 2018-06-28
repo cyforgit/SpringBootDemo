@@ -33,6 +33,16 @@ public class MvcController {
     public BaseResponse getBaseResponse2(HttpServletRequest request, HttpServletResponse response) {
        return userRedisDao.getBaseResponse2("myCacheTest2");
     }
+    
+    @RequestMapping("/redisCacheTest3")
+    public String getBaseResponse3(HttpServletRequest request, HttpServletResponse response) {
+       return userRedisDao.delete("myCacheTest1");
+    }
+    
+    @RequestMapping("/redisCacheTest4")
+    public BaseResponse getUpdatedResponse(HttpServletRequest request, HttpServletResponse response) {
+       return userRedisDao.getUpdatedResponse("myCacheTest1");
+    }
     // @Autowired
     // UserDao userDao;
     //
