@@ -7,7 +7,7 @@ import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.context.annotation.PropertySource;
 
 @SpringBootApplication
-@PropertySource(value = "file:/usr/local/hitv/springboot.cfg")
+@PropertySource(value = "classpath:springboot.cfg")
 public class App {
 	public static void main(String[] args) {
 		SpringApplication.run(App.class, args);
