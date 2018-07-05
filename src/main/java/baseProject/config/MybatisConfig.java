@@ -25,20 +25,20 @@ public class MybatisConfig {
 		return DruidDataSourceBuilder.create().build();
 	}
 	
-	/**
-	 * 多数据源配置
-	 * @return
-	 */
-	@Primary
-	@Bean
-	@ConfigurationProperties("spring.datasource.druid.one")
-	public DataSource dataSourceOne(){
-	    return DruidDataSourceBuilder.create().build();
-	}
-	@Bean
-	@ConfigurationProperties("spring.datasource.druid.two")
-	public DataSource dataSourceTwo(){
-	    return DruidDataSourceBuilder.create().build();
-	}
+//	/**
+//	 * 多数据源配置
+//	 * @return
+//	 */
+//	@Primary
+//	@Bean
+//	@ConfigurationProperties("spring.datasource.druid.one")
+//	public DataSource dataSourceOne(){
+//	    return DruidDataSourceBuilder.create().build();
+//	}
+//	@Bean
+//	@ConfigurationProperties("spring.datasource.druid.two")
+//	public DataSource dataSourceTwo(){
+//	    return DruidDataSourceBuilder.create().build();
+//	}
 
 }

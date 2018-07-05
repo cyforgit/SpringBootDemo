@@ -5,32 +5,3 @@ create table `users` (
     `MOBILE` varchar (33),
     `EMAIL` varchar (120)
 ); 
-CREATE TABLE `app` (
-  `appId` bigint(16) NOT NULL AUTO_INCREMENT COMMENT '应用ID',
-  `appName` varchar(256) NOT NULL COMMENT '应用名称',
-  `packageName` varchar(128) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL COMMENT '包名',
-  `gameFlag` int(1) NOT NULL DEFAULT '0' COMMENT '0应用1游戏',
-  `appStatus` int(2) NOT NULL COMMENT '0审核不通过1审核通过2待编3待审4下线',
-  `owner` int(10) NOT NULL COMMENT '发行商0hitv',
-  `developerId` bigint(16) NOT NULL COMMENT '开发者id',
-  `developerNickName` varchar(128) NOT NULL COMMENT '开发者名称',
-  `currentVersion` varchar(128) NOT NULL DEFAULT '0' COMMENT '应用文件当前版本',
-  `currentVersionCode` bigint(16) NOT NULL DEFAULT '0' COMMENT '当前版本号',
-  `createdDate` bigint(13) NOT NULL COMMENT '创建时间',
-  `lastUpdatedDate` bigint(13) NOT NULL COMMENT '发布时间',
-  `realAverageScore` float(3,1) DEFAULT NULL,
-  `userAverageScore` float(3,1) DEFAULT NULL,
-  `finalAverageScore` float(3,1) DEFAULT NULL,
-  `realDownloadCount` int(10) NOT NULL DEFAULT '0' COMMENT '实际下载次数',
-  `otherDownloadCount` int(10) NOT NULL DEFAULT '0' COMMENT '第三方下载次数',
-  `finalDownloadCount` int(10) NOT NULL DEFAULT '0' COMMENT '最终展示下载次数',
-  `freeFlag` int(1) NOT NULL DEFAULT '1' COMMENT '0收费1免费',
-  `appTag` varchar(128) DEFAULT NULL COMMENT '标签',
-  `insidePay` int(1) NOT NULL DEFAULT '0' COMMENT '是否内部收费0否1是',
-  `publishDate` bigint(13) NOT NULL DEFAULT '0' COMMENT '发布时间',
-  `recommendOrder` int(10) NOT NULL DEFAULT '0' COMMENT '推荐排序',
-  `slogan` varchar(64) NOT NULL DEFAULT '' COMMENT '广告语',
-  `auto_upgrade_flag` int(1) NOT NULL DEFAULT '0' COMMENT '是否自动升级，0-否，1-是',
-  PRIMARY KEY (`appId`),
-  UNIQUE KEY `uniq_package_name` (`packageName`)
-) ENGINE=InnoDB AUTO_INCREMENT=9000015387914 DEFAULT CHARSET=utf8 COMMENT='应用线上表'
