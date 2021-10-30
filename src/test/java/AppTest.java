@@ -93,6 +93,9 @@ public class AppTest {
     void shiroTest2() {
         //初始化管理
         DefaultSecurityManager defaultSecurityManager=new DefaultSecurityManager();
-
+        //手动植入账户
+        SimpleAccountRealm simpleAccountRealm=new SimpleAccountRealm();
+        simpleAccountRealm.addAccount("waha","lala");
+        //获取提交认证请求
     }
 }
