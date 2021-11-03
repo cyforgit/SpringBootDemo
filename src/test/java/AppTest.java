@@ -92,10 +92,18 @@ public class AppTest {
     @Test
     void shiroTest2() {
         //初始化管理
-        DefaultSecurityManager defaultSecurityManager=new DefaultSecurityManager();
+        DefaultSecurityManager defaultSecurityManager = new DefaultSecurityManager();
         //手动植入账户
-        SimpleAccountRealm simpleAccountRealm=new SimpleAccountRealm();
-        simpleAccountRealm.addAccount("waha","lala");
+        SimpleAccountRealm simpleAccountRealm = new SimpleAccountRealm();
+        simpleAccountRealm.addAccount("waha", "lala");
+        defaultSecurityManager.setRealm(simpleAccountRealm);
         //获取提交认证请求
+        SecurityUtils.setSecurityManager(defaultSecurityManager);
+        Subject subject = SecurityUtils.getSubject();
+
+        UsernamePasswordToken usernamePasswordToken = new UsernamePasswordToken("waha", "lala");
+        subject.login(usernamePasswordToken);
+
+        System.out.println(subject.isAuthenticated());
     }
 }
