@@ -1,13 +1,18 @@
+import com.alibaba.druid.pool.DruidDataSource;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.UsernamePasswordToken;
 import org.apache.shiro.config.IniSecurityManagerFactory;
 import org.apache.shiro.mgt.DefaultSecurityManager;
 import org.apache.shiro.realm.SimpleAccountRealm;
+import org.apache.shiro.realm.jdbc.JdbcRealm;
 import org.apache.shiro.subject.Subject;
 import org.apache.shiro.util.Factory;
 import org.junit.jupiter.api.Test;
 
+import javax.sql.DataSource;
+import java.sql.Driver;
+import java.util.Date;
 import java.util.concurrent.*;
 
 public class AppTest {
@@ -105,5 +110,48 @@ public class AppTest {
         subject.login(usernamePasswordToken);
 
         System.out.println(subject.isAuthenticated());
+    }
+
+    @Test
+    void shrioAuthTest() {
+        //初始化管理
+        DefaultSecurityManager defaultSecurityManager = new DefaultSecurityManager();
+        //手动植入账户
+        SimpleAccountRealm simpleAccountRealm = new SimpleAccountRealm();
+        simpleAccountRealm.addAccount("waha", "lala", "admin");
+        defaultSecurityManager.setRealm(simpleAccountRealm);
+        //获取提交认证请求
+        SecurityUtils.setSecurityManager(defaultSecurityManager);
+        Subject subject = SecurityUtils.getSubject();
+
+        UsernamePasswordToken usernamePasswordToken = new UsernamePasswordToken("waha", "lala");
+        subject.login(usernamePasswordToken);
+        System.out.println();
+        subject.checkRole("adminad");
+    }
+
+    DruidDataSource druidDataSource = new DruidDataSource();
+
+    {
+        druidDataSource.setUrl("jdbc:mysql://localhost:3306/test");
+        druidDataSource.setUsername("root");
+        druidDataSource.setPassword("root1234");
+    }
+
+    @Test
+    void jdbcRealTest() {
+
+        JdbcRealm jdbcRealm = new JdbcRealm();
+        jdbcRealm.setDataSource(druidDataSource);
+        DefaultSecurityManager securityManager = new DefaultSecurityManager();
+        securityManager.setRealm(jdbcRealm);
+
+        SecurityUtils.setSecurityManager(securityManager);
+        Subject subject = SecurityUtils.getSubject();
+
+        UsernamePasswordToken usernamePasswordToken = new UsernamePasswordToken("Mark", "123456");
+        subject.login(usernamePasswordToken);
+        System.out.println(subject.isAuthenticated());
+//        subject.checkRole("adminad");
     }
 }
