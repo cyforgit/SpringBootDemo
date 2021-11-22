@@ -154,4 +154,16 @@ public class AppTest {
         System.out.println(subject.isAuthenticated());
 //        subject.checkRole("adminad");
     }
+
+    @Test
+    void customRealmTest() {
+        DefaultSecurityManager securityManager = new DefaultSecurityManager();
+        securityManager.setRealm(new MyRealm());
+        SecurityUtils.setSecurityManager(securityManager);
+        Subject subject = SecurityUtils.getSubject();
+        UsernamePasswordToken usernamePasswordToken = new UsernamePasswordToken("Mark", "123456");
+        subject.login(usernamePasswordToken);
+        System.out.println(subject.isAuthenticated());
+
+    }
 }
