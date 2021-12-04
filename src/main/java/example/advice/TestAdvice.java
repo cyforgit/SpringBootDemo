@@ -16,7 +16,7 @@ public class TestAdvice {
     public Object handlerException(HttpServletRequest request, Exception e) {
 
         System.out.println("Test advice handle exception:" + e.getMessage());
-        return "error happen";
+        return e.toString();
 
     }
 
