@@ -2,3 +2,11 @@ spring:
   profiles:
     #开发dev 测试test 生产prod
     active: dev
+#默认线程池修改
+  task:
+    execution:
+      pool:
+        core-size: 1
+        max-size: 1
+        keep-alive: 60s
+        queue-capacity: 0

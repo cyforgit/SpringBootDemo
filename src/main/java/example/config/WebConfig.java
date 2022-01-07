@@ -1,4 +1,4 @@
-package example.webconfig;
+package example.config;
 
 import example.interceptor.TestInterceptor;
 import org.springframework.context.annotation.Configuration;

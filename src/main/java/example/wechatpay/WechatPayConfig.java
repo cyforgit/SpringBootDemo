@@ -18,7 +18,6 @@ public class WechatPayConfig {
     String merchantId;
     //商户序列号
     String merchantSerialNo;
-
     //回调地址
     String payNotifyCallbackUrl;
     String appId;
