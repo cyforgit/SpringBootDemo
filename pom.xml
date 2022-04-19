@@ -41,6 +41,8 @@
             <artifactId>commons-logging</artifactId>
             <version>1.1.3</version>
         </dependency>
+
+
         <dependency>
             <groupId>org.apache.shiro</groupId>
             <artifactId>shiro-core</artifactId>
@@ -60,7 +62,11 @@
             <artifactId>spring-boot-starter-aop</artifactId>
         </dependency>
 
-
+        <dependency>
+            <groupId>com.auth0</groupId>
+            <artifactId>java-jwt</artifactId>
+            <version>3.9.0</version>
+        </dependency>
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
@@ -115,8 +121,57 @@
             <artifactId>junit</artifactId>
             <scope>test</scope>
         </dependency>
-    </dependencies>
+        <!--        工作流-->
+<!--        <dependency>-->
+<!--            <groupId>com.github.snakerflow</groupId>-->
+<!--            <artifactId>snaker-core</artifactId>-->
+<!--            <version>2.4.0</version>-->
+<!--            <exclusions>-->
+<!--                <exclusion>-->
+<!--                    <groupId>org.slf4j</groupId>-->
+<!--                    <artifactId>slf4j-api</artifactId>-->
+<!--                </exclusion>-->
+<!--            </exclusions>-->
+<!--        </dependency>-->
+<!--        <dependency>-->
+<!--            <groupId>com.github.snakerflow</groupId>-->
+<!--            <artifactId>snaker-spring</artifactId>-->
+<!--            <version>2.4.0</version>-->
+<!--        </dependency>-->
+<!--        <dependency>-->
+<!--            <groupId>com.github.snakerflow</groupId>-->
+<!--            <artifactId>snaker-mybatis</artifactId>-->
+<!--            <version>2.4.0</version>-->
+<!--        </dependency>-->
 
+    </dependencies>
+    <repositories>
+
+        <repository>
+            <id>aliyun</id>
+            <url>https://maven.aliyun.com/repository/public</url>
+            <releases>
+                <enabled>true</enabled>
+            </releases>
+            <snapshots>
+                <enabled>false</enabled>
+            </snapshots>
+        </repository>
+
+    </repositories>
+    <pluginRepositories>
+
+        <pluginRepository>
+            <id>aliyun-plugin</id>
+            <url>https://maven.aliyun.com/repository/public</url>
+            <releases>
+                <enabled>true</enabled>
+            </releases>
+            <snapshots>
+                <enabled>false</enabled>
+            </snapshots>
+        </pluginRepository>
+    </pluginRepositories>
     <build>
 
     </build>

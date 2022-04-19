@@ -1,5 +1,6 @@
 package example.controller;
 
+import com.alipay.api.domain.VoucherDescDetail;
 import example.asyncService.CommonAsyncService;
 import example.bo.MyArrBody;
 import example.es.EsTestPo;
@@ -9,11 +10,15 @@ import org.springframework.data.elasticsearch.core.ElasticsearchRestTemplate;
 import org.springframework.data.elasticsearch.core.SearchHits;
 import org.springframework.data.elasticsearch.core.query.Criteria;
 import org.springframework.data.elasticsearch.core.query.CriteriaQuery;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.servlet.http.HttpServletResponse;
+import java.util.HashMap;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Future;
 
@@ -64,8 +69,12 @@ public class controller {
     }
 
     @RequestMapping("/home")
-    String home() {
-        return "Hello World!";
+    ResponseEntity<Object> home(HttpServletResponse response) {
+        return new ResponseEntity<>(new HashMap<String, String>() {{
+            put("name", "张三");
+        }}, HttpStatus.UNAUTHORIZED);
+
+
     }
 
     @RequestMapping("/myerror")
